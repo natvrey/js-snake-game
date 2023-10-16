@@ -7,11 +7,11 @@ let context;
 let snakeX = blockSize * 5;
 let snakeY = blockSize * 5;
 
- // Set the total number of columns based on screen size
- function setBoardSize() {
-    total_col = Math.floor(window.innerWidth / blockSize);
-    board.height = total_row * blockSize;
-    board.width = total_col * blockSize;
+// Set the total number of columns based on screen size
+function setBoardSize() {
+	total_col = Math.floor(window.innerWidth / 35);
+	board.height = total_row * blockSize;
+	board.width = total_col * blockSize;
 }
 
 // Set the total number of rows and columns
@@ -26,38 +26,17 @@ let foodY;
 let gameOver = false;
 
 window.onload = function () {
-    board = document.getElementById("game-board");
-    context = board.getContext("2d");
-
-    // Disable image smoothing to prevent font blurriness
-    context.imageSmoothingEnabled = false;
-    setBoardSize();
-    window.addEventListener("resize", setBoardSize); // Update board size on window resize
-
+	board = document.getElementById("game-board");
+	context = board.getContext("2d");
+	// Disable image smoothing to prevent font blurriness
+	context.imageSmoothingEnabled = false;
+	setBoardSize();
+	window.addEventListener("resize", setBoardSize); // Update board size on window resize
 	placeFood();
 	document.addEventListener("keyup", changeDirection); //for movements
 	// Set snake speed
 	setInterval(update, 1000 / 10);
 
-    // Get the canvas element and its 2D rendering context
-    let title = document.getElementById('game-title');
-    const ctx = title.getContext('2d');
-
-    // Set the font style and size
-    ctx.font = '2rem Arial';
-
-
-    // Define the text and its colors
-    let text = "nats-gateway";
-    let colors = ["red", "orange", "salmon", "green", "blue", "purple"];
-    let x = 75; // X-coordinate for the starting point of the text
-
-    // Loop through the text and draw each character with a different color
-    for (let i = 0; i < text.length; i++) {
-        ctx.fillStyle = colors[i % colors.length]; // Cycle through the colors
-        ctx.fillText(text[i], x, 20); // Y-coordinate for the text
-        x += ctx.measureText(text[i]).width; // Move the starting point based on the character width
-    }
 }
 
 function update() {
@@ -71,7 +50,10 @@ function update() {
 
 	// Set food color and position
 	context.fillStyle = "yellow";
-	context.fillRect(foodX, foodY, blockSize, blockSize);
+	context.beginPath();
+	context.arc(foodX + blockSize / 2, foodY + blockSize / 2, blockSize / 2, 0, 2 * Math.PI);
+	context.fill();
+	context.closePath();
 
 	if (snakeX == foodX && snakeY == foodY) {
 		snakeBody.push([foodX, foodY]);
@@ -87,7 +69,7 @@ function update() {
 		snakeBody[0] = [snakeX, snakeY];
 	}
 
-	context.fillStyle = "white";
+	context.fillStyle = "red";
 	snakeX += speedX * blockSize; //updating Snake position in X coordinate.
 	snakeY += speedY * blockSize; //updating Snake position in Y coordinate.
 	context.fillRect(snakeX, snakeY, blockSize, blockSize);
@@ -95,19 +77,17 @@ function update() {
 		context.fillRect(snakeBody[i][0], snakeBody[i][1], blockSize, blockSize);
 	}
 
-	if (snakeX < 0 
-		|| snakeX > total_col * blockSize 
-		|| snakeY < 0 
-		|| snakeY > total_row * blockSize) { 
-		
+	if (snakeX < 0
+		|| snakeX > total_col * blockSize
+		|| snakeY < 0
+		|| snakeY > total_row * blockSize) {
 		// Out of bound condition
 		gameOver = true;
 		alert("Game Over");
 	}
 
 	for (let i = 0; i < snakeBody.length; i++) {
-		if (snakeX == snakeBody[i][0] && snakeY == snakeBody[i][1]) { 
-			
+		if (snakeX == snakeBody[i][0] && snakeY == snakeBody[i][1]) {
 			// Snake eats own body
 			gameOver = true;
 			alert("Game Over");
@@ -117,7 +97,7 @@ function update() {
 
 // Movement of the Snake - We are using addEventListener
 function changeDirection(e) {
-	if (e.code == "ArrowUp" && speedY != 1) { 
+	if (e.code == "ArrowUp" && speedY != 1) {
 		// If up arrow key pressed with this condition...
 		// snake will not move in the opposite direction
 		speedX = 0;
@@ -133,8 +113,8 @@ function changeDirection(e) {
 		speedX = -1;
 		speedY = 0;
 	}
-	else if (e.code == "ArrowRight" && speedX != -1) { 
-		//If Right arrow key pressed
+	else if (e.code == "ArrowRight" && speedX != -1) {
+	//If Right arrow key pressed
 		speedX = 1;
 		speedY = 0;
 	}
@@ -144,8 +124,7 @@ function changeDirection(e) {
 function placeFood() {
 
 	// in x coordinates.
-	foodX = Math.floor(Math.random() * total_col) * blockSize; 
-	
+	foodX = Math.floor(Math.random() * total_col) * blockSize;
 	//in y coordinates.
-	foodY = Math.floor(Math.random() * total_row) * blockSize; 
+	foodY = Math.floor(Math.random() * total_row) * blockSize;
 }
