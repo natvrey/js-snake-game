@@ -6,6 +6,7 @@
 	<meta name="viewport", 
 		content="width=device-width, initial-scale=1.0">
 	<title>Snake Game with nats-gateway</title>
+	<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
 	<link rel="stylesheet" href="style.css">
 	<script src="script.js"></script>
 </head>
@@ -13,13 +14,14 @@
 <body>
 	<div id="game-over-modal" class="modal" style="display: none;">
 		<div class="modal-content">
-		  <h2>Game Over</h2>
+		  <h1>Game Over</h1>
 		  <button id="restart-button">Restart</button>
 		</div>
 	</div>
-	<h1 class="name">Snake Game with </h1>
+	<h1 class="heading-one">Snake Game</h1>
+	<h2 class="heading-two"> with </h2>
     <section class="game">
-    <h2 id="game-title"> nats-gateway</h2>
+    <h3 id="game-title"> nats-gateway</h3>
 	<canvas id="game-board"></canvas>
     </section>	  
 </body>
