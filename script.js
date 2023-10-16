@@ -28,8 +28,6 @@ let gameOver = false;
 window.onload = function () {
 	board = document.getElementById("game-board");
 	context = board.getContext("2d");
-	// Disable image smoothing to prevent font blurriness
-	context.imageSmoothingEnabled = false;
 	setBoardSize();
 	window.addEventListener("resize", setBoardSize); // Update board size on window resize
 	placeFood();
@@ -37,6 +35,17 @@ window.onload = function () {
 	// Set snake speed
 	setInterval(update, 1000 / 10);
 
+}
+
+function displayGameOverModal() {
+	const modal = document.getElementById("game-over-modal");
+	modal.style.display = "block"; // Show the modal
+  
+	// Add an event listener to the restart button
+	const restartButton = document.getElementById("restart-button");
+	restartButton.addEventListener("click", () => {
+	  window.location.reload();
+	});
 }
 
 function update() {
@@ -83,14 +92,14 @@ function update() {
 		|| snakeY > total_row * blockSize) {
 		// Out of bound condition
 		gameOver = true;
-		alert("Game Over");
+		displayGameOverModal();
 	}
 
 	for (let i = 0; i < snakeBody.length; i++) {
 		if (snakeX == snakeBody[i][0] && snakeY == snakeBody[i][1]) {
 			// Snake eats own body
 			gameOver = true;
-			alert("Game Over");
+			displayGameOverModal();
 		}
 	}
 }
@@ -122,7 +131,6 @@ function changeDirection(e) {
 
 // Randomly place food
 function placeFood() {
-
 	// in x coordinates.
 	foodX = Math.floor(Math.random() * total_col) * blockSize;
 	//in y coordinates.

@@ -1,4 +1,3 @@
-/* Write CSS Here */
 body {
 	text-align: center;
     display: flex;
@@ -6,11 +5,12 @@ body {
     align-items: center;
     padding-left: 5vw;
     padding-right: 5vw;
+    background-color: black;
 }
 .name {
 	font-size: 40px;
 	font-weight: bold;
-	color: green;
+	color: yellow;
     margin-bottom: 0.25rem;
 }
 .game{
@@ -20,7 +20,9 @@ body {
     height: max-content;
 }
 #game-board{
-    border:6px solid pink;
+    border:6px solid;
+    border-image: linear-gradient(to right,greenyellow, pink, violet, red,violet, pink, greenyellow);
+    border-image-slice: 1;
     margin-left: 2rem;
     margin-right: 2rem;
 }
@@ -30,19 +32,52 @@ body {
     margin-bottom: 2.5rem;
     font-size: 2rem;
     font-family: Arial, Helvetica, sans-serif;
-    background: linear-gradient(to right, rgba(234, 238, 11, 0) 0%, rgba(190, 27, 49, 0.5) 20%, rgba(246, 7, 7, 0) 61%), linear-gradient(rgb(255, 105, 180) 52%, rgb(0, 255, 127) 60%, rgb(10, 226, 104) 61%);
+    background: linear-gradient(to right, rgba(234, 238, 11, 0) 0%, rgba(190, 27, 49, 0.5) 20%, rgba(246, 7, 7, 0) 61%), linear-gradient(rgb(255, 105, 180) 52%, rgb(0, 255, 127) 60%, rgb(0, 255, 127) 60%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: wave 2000ms ease alternate infinite;
     transition: all 0.4s ease;
     
-  }
-  @keyframes wave {
+}
+@keyframes wave {
     0% {
       background-position: 0 0;
     }
     100% {
       background-position: 50vw 20px;
     }
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
+  
+  .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    display: inline-block;
+    margin-top: 28vh;
+  }
+  
+  #restart-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
